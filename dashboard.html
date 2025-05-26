@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Student Login & Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background: #f4f4f4;
+      }
+      .center-box {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+      .card {
+        border-radius: 10px;
+      }
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Login Page -->
+    <div id="login-page" class="center-box">
+      <div class="card p-4 shadow" style="width: 100%; max-width: 400px">
+        <h3 class="text-center mb-3">Student Login</h3>
+        <div class="mb-3">
+          <input
+            type="text"
+            id="username"
+            class="form-control"
+            placeholder="Enter username"
+          />
+        </div>
+        <div class="mb-3">
+          <input
+            type="password"
+            id="password"
+            class="form-control"
+            placeholder="Enter password"
+          />
+        </div>
+        <div class="d-grid">
+          <button class="btn btn-primary" onclick="login()">Login</button>
+        </div>
+        <p id="error" class="text-danger text-center mt-3"></p>
+      </div>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div id="dashboard-page" class="hidden">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+        <span class="navbar-brand">📘 Student Dashboard</span>
+        <div class="ms-auto">
+          <a href="index.html" class="btn btn-outline-light btn-sm"> Logout </a>
+        </div>
+      </nav>
+
+      <div class="container mt-5 mb-5">
+        <h2 class="text-center mb-4">
+          👋 Welcome, <span id="studentName">Student</span>!
+        </h2>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="card text-center shadow p-4">
+              <h4>Total Courses</h4>
+              <p class="fs-3 fw-bold text-primary" id="totalCourses">0</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card text-center shadow p-4">
+              <h4>Completed Assignments</h4>
+              <p class="fs-3 fw-bold text-success" id="completedAssignments">
+                0
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card text-center shadow p-4">
+              <h4>GPA</h4>
+              <p class="fs-3 fw-bold text-warning" id="gpa">0.0</p>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="card shadow p-4">
+              <h4 class="mb-3">📚 Recent Assignments</h4>
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Title</th>
+                      <th>Due Date</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="assignmentTableBody">
+                    <!-- dynamically filled -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const users = {
+        sumit: {
+          password: "1234",
+          name: "Sumit",
+          courses: 5,
+          assignments: 12,
+          gpa: 3.8,
+          recentAssignments: [
+            {
+              title: "javaScript Project",
+              due: "May 25, 2025",
+              status: "Completed",
+            },
+            {
+              title: "python Assignment",
+              due: "May 28, 2025",
+              status: "Pending",
+            },
+            { title: "Java", due: "May 30, 2025", status: "Upcoming" },
+          ],
+        },
+        student: {
+          password: "demo",
+          name: "Student",
+          courses: 3,
+          assignments: 8,
+          gpa: 3.5,
+          recentAssignments: [
+            {
+              title: "History Notes",
+              due: "June 2, 2025",
+              status: "Completed",
+            },
+            { title: "Biology Report", due: "June 5, 2025", status: "Pending" },
+          ],
+        },
+      };
+
+      function login() {
+        const uname = document
+          .getElementById("username")
+          .value.trim()
+          .toLowerCase();
+        const pwd = document.getElementById("password").value;
+
+        if (users[uname] && users[uname].password === pwd) {
+          localStorage.setItem("currentUser", uname);
+          showDashboard();
+        } else {
+          document.getElementById("error").textContent =
+            "Invalid username or password.";
+        }
+      }
+
+      function showDashboard() {
+        const uname = localStorage.getItem("currentUser");
+        if (!uname || !users[uname]) return;
+
+        const user = users[uname];
+        document.getElementById("login-page").classList.add("hidden");
+        document.getElementById("dashboard-page").classList.remove("hidden");
+
+        document.getElementById("studentName").textContent = user.name;
+        document.getElementById("totalCourses").textContent = user.courses;
+        document.getElementById("completedAssignments").textContent =
+          user.assignments;
+        document.getElementById("gpa").textContent = user.gpa;
+
+        const tbody = document.getElementById("assignmentTableBody");
+        tbody.innerHTML = "";
+        user.recentAssignments.forEach((item) => {
+          const row = `<tr>
+        <td>${item.title}</td>
+        <td>${item.due}</td>
+        <td><span class="badge ${
+          item.status === "Completed"
+            ? "bg-success"
+            : item.status === "Pending"
+            ? "bg-warning text-dark"
+            : "bg-secondary"
+        }">${item.status}</span></td>
+      </tr>`;
+          tbody.innerHTML += row;
+        });
+      }
+
+      function logout() {
+        localStorage.removeItem("currentUser");
+        document.getElementById("dashboard-page").classList.add("hidden");
+        document.getElementById("login-page").classList.remove("hidden");
+        document.getElementById("username").value = "";
+        document.getElementById("password").value = "";
+        document.getElementById("error").textContent = "";
+      }
+
+      window.onload = () => {
+        if (localStorage.getItem("currentUser")) {
+          showDashboard();
+        }
+      };
+    </script>
+  </body>
+</html>

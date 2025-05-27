@@ -307,42 +307,44 @@
                       <span class="count" style="position: absolute; top: -8px; right: -10px; background: border-radius: 50%; padding: -1px 6px; font-size: 12px;">0</span>
                     </a>
                   </li>
-                  <li class="header-btn">
-                                    <a href="my-account.html" class="edu-btn btn-medium">Login<i class="icon-4"></i></a>
-                                </li>
-                  <li class="mobile-menu-bar d-block d-xl-none">
-                    <button class="hamberger-button">
-                      <i class="icon-54"></i>
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="popup-mobile-menu">
-          <div class="inner">
-            <div class="header-top">
-              <div class="logo">
-                <a href="index.html">
-                  <img
-                    class="logo-light"
-                    src="assets/images/SANTULOGO.png"
-                    alt="Corporate Logo"
-                  />
-                  <img
-                    class="logo-dark"
-                    src="assets/images/SANTULOGO.png"
-                    alt="Corporate Logo"
-                  />
-                </a>
-              </div>
-              <div class="close-menu">
-                <button class="close-button">
-                  <i class="icon-73"></i>
-                </button>
-              </div>
-            </div>
+                  <li class="header-btn"><a href="my-account.html" class="edu-btn btn-medium">Login<i class="icon-4"></i></a>=</li>
+                  <!-- Mobile menu toggle button -->
+<li class="mobile-menu-bar d-block d-xl-none">
+  <button class="hamberger-button">
+    <i class="icon-54"></i>
+  </button>
+</li>
+
+<!-- Mobile menu popup -->
+<div class="popup-mobile-menu" style="display:none;">
+  <div class="inner">
+    <div class="header-top">
+      <div class="logo">
+        <a href="index.html">
+          <img class="logo-light" src="assets/images/SANTULOGO.png" alt="Corporate Logo" />
+          <img class="logo-dark" src="assets/images/SANTULOGO.png" alt="Corporate Logo" />
+        </a>
+      </div>
+      <div class="close-menu">
+        <button class="close-button">
+          <i class="icon-73"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Mobile menu navigation -->
+    <nav class="mainmenu-nav">
+      <ul class="mainmenu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about-three.html">About</a></li>
+        <li><a href="course-one.html">Courses</a></li>
+        <li><a href="blog-masonry.html">Blog</a></li>
+        <li><a href="contact-us.html">Contact</a></li>
+      </ul>
+    </nav>
+    
+  </div>
+</div>
             
         <!-- Start Search Popup  -->
         <div class="edu-search-popup">
@@ -711,6 +713,17 @@
         }
       });
     </script>
+
+<script>
+  // Mobile menu toggle show/hide logic
+  document.querySelector('.hamberger-button').addEventListener('click', function() {
+    document.querySelector('.popup-mobile-menu').style.display = 'block';
+  });
+
+  document.querySelector('.close-button').addEventListener('click', function() {
+    document.querySelector('.popup-mobile-menu').style.display = 'none';
+  });
+</script>
     
   </body>
 

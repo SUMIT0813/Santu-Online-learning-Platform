@@ -32,5 +32,15 @@
       });
     }
   </script>
+  <script>
+    // Mobile menu toggle show/hide logic
+    document.querySelector('.hamberger-button').addEventListener('click', function() {
+      document.querySelector('.popup-mobile-menu').style.display = 'block';
+    });
+  
+    document.querySelector('.close-button').addEventListener('click', function() {
+      document.querySelector('.popup-mobile-menu').style.display = 'none';
+    });
+  </script>
 </body>
 </html>

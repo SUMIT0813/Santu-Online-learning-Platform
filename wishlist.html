@@ -850,12 +850,9 @@
                 <div class="inner text-center">
                   <p>
                     Copyright 2024
-                    <a href="#" target="_blank"
-                      >SANTU</a
-                    >
+                    <a href="#" target="_blank">SANTU</a>
                     Designed By
-                    <a href="#">SKR</a>. All
-                    Rights Reserved
+                    <a href="#">SKR</a>. All Rights Reserved
                   </p>
                 </div>
               </div>
@@ -907,6 +904,20 @@
 
     <!-- Site Scripts -->
     <script src="assets/js/app.js"></script>
+    <script>
+      // Mobile menu toggle show/hide logic
+      document
+        .querySelector(".hamberger-button")
+        .addEventListener("click", function () {
+          document.querySelector(".popup-mobile-menu").style.display = "block";
+        });
+
+      document
+        .querySelector(".close-button")
+        .addEventListener("click", function () {
+          document.querySelector(".popup-mobile-menu").style.display = "none";
+        });
+    </script>
   </body>
 
   <!-- Mirrored from SANTU.html.devsblink.com/wishlist.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 15 Mar 2025 09:29:05 GMT -->
